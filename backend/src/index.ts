@@ -3,6 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { dbConnection } from "./db/config";
+import notFound from "./middlewares/notFound";
+import globalErrorHandler from "./middlewares/globalErrorHandler";
 
 dotenv.config();
 const port = process.env.PORT || 3000;
@@ -18,6 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
 	res.send("Hello World");
 });
+
+app.use("*", notFound);
+app.use(globalErrorHandler);
 
 app.listen(port, () => {
 	dbConnection();
