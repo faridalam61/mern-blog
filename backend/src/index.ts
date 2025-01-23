@@ -5,9 +5,10 @@ import dotenv from "dotenv";
 import { dbConnection } from "./db/config";
 import notFound from "./middlewares/notFound";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
+import { userRouter } from "./modules/user/user.routes";
 
 dotenv.config();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 	res.send("Hello World");
 });
 
+app.use("/api/v1/user", userRouter);
 app.use("*", notFound);
 app.use(globalErrorHandler);
 
