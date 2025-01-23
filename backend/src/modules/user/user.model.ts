@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TUser } from "./user.interface";
+import bcrypt from "bcrypt";
 
 const userSchema = new Schema<TUser>({
 	firstName: { type: String, required: true, trim: true },
@@ -15,6 +16,15 @@ const userSchema = new Schema<TUser>({
 	isVerified: { type: Boolean, default: false },
 	lastLogin: { type: Date },
 	passwordUpdatedAt: { type: Date, default: Date.now() },
+});
+
+userSchema.pre("save", async function (next) {
+	const user = this;
+	user.password = await bcrypt.hash(
+		user.password,
+		Number(process.env.SOLT_ROUND)
+	);
+	next();
 });
 
 export const User = model<TUser>("user", userSchema);
