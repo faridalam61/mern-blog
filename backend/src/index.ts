@@ -6,6 +6,7 @@ import { dbConnection } from "./db/config";
 import notFound from "./middlewares/notFound";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import { userRouter } from "./modules/user/user.routes";
+import { authRoutes } from "./modules/auth/auth.routes";
 
 dotenv.config();
 const port = process.env.PORT || 4000;
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/auth", authRoutes);
 app.use("*", notFound);
 app.use(globalErrorHandler);
 
