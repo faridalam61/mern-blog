@@ -67,6 +67,27 @@ const loginUser = async (payload: TLogin) => {
 	};
 };
 
+// Verify account
+const verifyEmail = async (token: string) => {
+	// check token
+	const decoded = jwt.verify(
+		token,
+		process.env.JWT_VERIFICATION_TOKEN_SECRET as string
+	) as JwtPayload;
+
+	// check if user exist
+	const { userId } = decoded;
+
+	const user = await getUserByID(userId);
+	if (!user) {
+		throw new Error("User not found");
+	}
+
+	// update user status
+	await User.findByIdAndUpdate(userId, { isVerified: true });
+
+	return null;
+};
 // change password
 const changePassword = async (
 	userData: JwtPayload,
@@ -188,6 +209,7 @@ const resetPassword = async (token: string, newPassword: string) => {
 	// Send response
 	return null;
 };
+
 // refress token
 
 export const authServices = {
@@ -195,4 +217,5 @@ export const authServices = {
 	changePassword,
 	forgotPassword,
 	resetPassword,
+	verifyEmail,
 };

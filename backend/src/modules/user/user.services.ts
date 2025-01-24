@@ -1,9 +1,31 @@
+import { createToken } from "../../utils/createToken";
+import { sendMail } from "../../utils/mail";
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
 
 // Create user
 const createUserIntoDB = async (payload: TUser) => {
 	const result = await User.create(payload);
+
+	const jwtPayload = {
+		userId: result.id,
+		role: result.role,
+		email: result.email,
+	};
+
+	const verificationToken = createToken(
+		jwtPayload,
+		process.env.JWT_VERIFICATION_TOKEN_SECRET as string,
+		process.env.JWT_VERIFICATION_TOKEN_EXPIRE as string
+	);
+	console.log("verificationLink", process.env.JWT_VERIFICATION_TOKEN_SECRET);
+	const verificationLink = `${process.env.CLIENT_URL}/${verificationToken}`;
+
+	await sendMail.verificationMail(
+		result.email,
+		verificationLink,
+		result.firstName
+	);
 	return result;
 };
 

@@ -24,6 +24,19 @@ const login = catchAsync(async (req, res) => {
 	});
 });
 
+// Verify email
+const verifyEmail = catchAsync(async (req, res) => {
+	const { token } = req.params;
+
+	const result = await authServices.verifyEmail(token);
+
+	sendResponse(res, {
+		statusCode: OK,
+		success: true,
+		message: "Email verification successfull",
+		data: result,
+	});
+});
 // change password
 
 // forgot password
@@ -57,4 +70,9 @@ const resetPassword = catchAsync(async (req, res) => {
 });
 // refress token
 
-export const authController = { login, forgotPassword, resetPassword };
+export const authController = {
+	login,
+	forgotPassword,
+	resetPassword,
+	verifyEmail,
+};

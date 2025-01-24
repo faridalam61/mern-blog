@@ -1,4 +1,4 @@
-export const passwordChangeEamilTemplate = `
+export const verificationEamilTemplate = `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" lang="en">
 	<head>
@@ -23,10 +23,10 @@ export const passwordChangeEamilTemplate = `
 			<div class="content">
 				<h2 style="font-size: 20px; font-weight: bold">Hi, {name} !</h2>
 				<p>
-					Your password has been changed successfully!
+					Verify your email, click the link below to verify your email.
                     
 				</p>
-               
+                <a href="{verificationLink}">Verify Email</a>
 				
 				<p style="font-size: 10px">
 					MERN AUTH will never email you and ask you to disclose or verify your

@@ -12,6 +12,10 @@ router.post(
 	validateRequest(authValidation.authValidationSchema),
 	authController.login
 );
+
+// Verify email
+router.post("/verify-email/:token", authController.verifyEmail);
+
 // change password
 // forgot password
 router.post(
