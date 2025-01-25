@@ -1,18 +1,28 @@
-import express from 'express'
-import { CommentControllers } from './comment.controllers'
-import validateRequest from '../../middlewares/validateRequest'
-import { CommentValidators } from './comment.validation'
+import express from "express";
+import { CommentControllers } from "./comment.controllers";
+import validateRequest from "../../middlewares/validateRequest";
+import { CommentValidators } from "./comment.validation";
 
-const router = express.Router()
+const router = express.Router();
 
- router.post("/", validateRequest(CommentValidators.createCommentValidationSchema),CommentControllers.createComment )
+// api/v1/comment
 
-router.patch("/:id", validateRequest(CommentValidators.updateCommentValidationSchema), CommentControllers.updateComment)
+router.post(
+	"/",
+	validateRequest(CommentValidators.createCommentValidationSchema),
+	CommentControllers.createComment
+);
 
-router.delete("/:id", CommentControllers.deleteComment)
+router.patch(
+	"/:id",
+	validateRequest(CommentValidators.updateCommentValidationSchema),
+	CommentControllers.updateComment
+);
 
- router.get("/:id", CommentControllers.getSingleComment)
+router.delete("/:id", CommentControllers.deleteComment);
 
- router.get("/", CommentControllers.getAllComments)
+router.get("/:id", CommentControllers.getSingleComment);
 
-export const CommentRoutes = router;
+router.get("/", CommentControllers.getAllComments);
+
+export const commentRoutes = router;

@@ -1,4 +1,4 @@
 export type TCategory = {
-    title: string;
-    descripton: string
-}
+	title: string;
+	description: string;
+};

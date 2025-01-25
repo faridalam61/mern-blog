@@ -7,6 +7,9 @@ import notFound from "./middlewares/notFound";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import { userRouter } from "./modules/user/user.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
+import { articleRoutes } from "./modules/article/article.routes";
+import { categoryRouter } from "./modules/category/category.routes";
+import { commentRoutes } from "./modules/comment/comment.routes";
 
 dotenv.config();
 const port = process.env.PORT || 4000;
@@ -25,6 +28,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/article", articleRoutes);
+app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/comment", commentRoutes);
 app.use("*", notFound);
 app.use(globalErrorHandler);
 
