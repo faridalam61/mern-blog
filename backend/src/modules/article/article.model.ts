@@ -8,7 +8,7 @@ const articleSchema = new Schema<TArticle>(
 		categories: { type: [Schema.Types.ObjectId], required: true },
 		tags: { type: [Schema.Types.ObjectId], required: true },
 		content: { type: String, required: true },
-		status: { type: String, enum: ["published", "draft"], default: "draft" },
+		status: { type: String, enum: ["published", "draft"], default: "published" },
 	},
 	{
 		timestamps: true,
