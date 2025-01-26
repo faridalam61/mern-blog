@@ -5,6 +5,7 @@ dotenv.config();
 import { passwordResetEamilTemplate } from "../templates/passwordResetEmail";
 import { passwordChangeEamilTemplate } from "../templates/passwordChangedEmail";
 import { verificationEamilTemplate } from "../templates/verificationEmail";
+import { welcomeEamilTemplate } from "../templates/welcomEmail";
 
 const resend = new Resend(process.env.RESEND_API);
 
@@ -54,8 +55,24 @@ const verificationMail = async (to: string, link: string, name: string) => {
 		console.log(err);
 	}
 };
+
+const welcomeMail = async (to: string, name: string) => {
+	try {
+		await resend.emails.send({
+			from: "MERN Blog <admin@farid-alam.com>",
+			to,
+			subject: "Welcome",
+			html: welcomeEamilTemplate
+				.replace("{name}", name)
+		});
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 export const sendMail = {
 	passwordResetMail,
 	passwordChangedMail,
 	verificationMail,
+	welcomeMail
 };

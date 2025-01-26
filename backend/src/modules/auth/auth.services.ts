@@ -86,6 +86,8 @@ const verifyEmail = async (token: string) => {
 	// update user status
 	await User.findByIdAndUpdate(userId, { isVerified: true });
 
+	await sendMail.welcomeMail(user.email, user.firstName)
+	
 	return null;
 };
 // change password
