@@ -1,21 +1,22 @@
-"use client";
-
 import { useState, useEffect } from "react";
 
 type Theme = "light" | "dark";
 
 export function useTheme() {
-	const [theme, setTheme] = useState<Theme>("light");
-
-	useEffect(() => {
-		const savedTheme = localStorage.getItem("theme") as Theme | null;
-		if (savedTheme) {
-			setTheme(savedTheme);
-		} else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-			setTheme("dark");
+	const [theme, setTheme] = useState<Theme>(() => {
+		// Get theme from localStorage or system preference on first render
+		if (typeof window !== "undefined") {
+			const savedTheme = localStorage.getItem("theme") as Theme | null;
+			if (savedTheme) {
+				return savedTheme;
+			} else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+				return "dark";
+			}
 		}
-	}, []);
+		return "light";
+	});
 
+	// Update localStorage and class on theme change
 	useEffect(() => {
 		if (theme === "dark") {
 			document.documentElement.classList.add("dark");
