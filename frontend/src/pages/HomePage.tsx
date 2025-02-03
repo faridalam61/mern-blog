@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router";
 import BlogCard from "../components/BlogCard";
 import Heading from "../components/Heading";
 import HeroSection from "../components/HeroSection";
 import DefaultLayout from "../layout/DefaultLayout";
 
 export const HomePage = () => {
+	const router = useNavigate();
 	return (
 		<DefaultLayout>
 			<Heading title="inficourses - infinity of free courses" />
@@ -22,7 +24,10 @@ export const HomePage = () => {
 					<BlogCard />
 				</div>
 				<div className="text-center px-4 py-8">
-					<button className="bg-gray-800 dark:bg-white dark:text-black text-white px-8 py-4 rounded-md cursor-pointer hover:scale-110 transition-transform duration-300">
+					<button
+						className="bg-gray-800 dark:bg-white dark:text-black text-white px-8 py-4 rounded-md cursor-pointer hover:scale-110 transition-transform duration-300"
+						onClick={() => router("/all-posts")}
+					>
 						View all posts
 					</button>
 				</div>
