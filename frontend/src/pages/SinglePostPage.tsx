@@ -4,7 +4,7 @@ import DefaultLayout from "../layout/DefaultLayout";
 const SinglePostPage = () => {
 	return (
 		<DefaultLayout>
-			<div className="container mx-auto flex flex-col md:flex-row gap-8">
+			<div className="container mx-auto flex flex-col md:flex-row gap-8 py-12">
 				<div className="w-full md:w-2/3 space-y-3 pr-8">
 					<h1 className="py-4 text-3xl font-bold">
 						Udemy - The Ultimate React Course 2024: React, Next.js, Redux & More
