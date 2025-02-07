@@ -13,7 +13,10 @@ const Navbar = () => {
 					<Link to="/category/abc">Category Page</Link>
 					<Link to="/post/abc">Single Post</Link>
 				</div>
-				<ThemeToggler />
+				<div className="flex items-center justify-end gap-6">
+					<Link to="/login">Login</Link>
+					<ThemeToggler />
+				</div>
 			</div>
 		</header>
 	);
