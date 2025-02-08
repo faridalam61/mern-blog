@@ -1,18 +1,34 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+	AiOutlineDashboard,
+	AiOutlineFire,
+	AiOutlineMenuUnfold,
+	AiOutlineRead,
+	AiOutlineSetting,
+	AiOutlineShareAlt,
+	AiOutlineTeam,
+	AiOutlineUser,
+} from "react-icons/ai";
+import { RxCaretDown, RxCaretRight } from "react-icons/rx";
+import StatsCard from "../components/dashboard/StatsCard";
 
 interface MenuItem {
 	name: string;
-	icon: string;
+	icon: React.ReactNode;
 	subItems?: string[];
 }
 
 const menuItems: MenuItem[] = [
 	{
 		name: "Dashboards",
-		icon: "📊",
-		subItems: ["Overview", "Analytics", "Reports"],
+		icon: <AiOutlineDashboard />,
 	},
-	{ name: "Transactions", icon: "💳" },
+	{
+		name: "Posts",
+		icon: <AiOutlineRead />,
+		subItems: ["Add new", "All posts", "Categories"],
+	},
+	{ name: "Users", icon: <AiOutlineTeam /> },
 ];
 
 export default function Dashboard() {
@@ -39,30 +55,23 @@ export default function Dashboard() {
 					</button>
 				</div>
 
-				{/* Bookmarks Section */}
-				<div className="px-4 py-2">
-					<div className="flex items-center justify-between text-sm">
-						<span>BOOKMARKS</span>
-						<button className="text-gray-400 hover:text-white">✏️</button>
-					</div>
-					<button className="mt-2 flex w-full items-center text-gray-400 hover:text-white">
-						<span className="mr-2">+</span> Add a bookmark
-					</button>
-				</div>
-
 				{/* Navigation Menu */}
 				<nav className="mt-4">
 					{menuItems.map((item) => (
 						<div key={item.name}>
 							<button
 								onClick={() => item.subItems && toggleExpand(item.name)}
-								className="flex w-full items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white dark:hover:bg-gray-700"
+								className="flex w-full items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white text-[15px] dark:hover:bg-gray-700"
 							>
 								<span className="mr-3">{item.icon}</span>
 								<span>{item.name}</span>
 								{item.subItems && (
 									<span className="ml-auto">
-										{expandedItem === item.name ? "▼" : "▶"}
+										{expandedItem === item.name ? (
+											<RxCaretDown size="20" />
+										) : (
+											<RxCaretRight size="20" />
+										)}
 									</span>
 								)}
 							</button>
@@ -84,8 +93,11 @@ export default function Dashboard() {
 
 				{/* Menu Settings */}
 				<div className="absolute bottom-0 w-full p-4">
-					<button className="flex w-full items-center text-gray-400 hover:text-white">
-						<span className="mr-3">⚙️</span> Menu settings
+					<button className="flex w-full items-center text-gray-400 hover:text-white text-[15px]">
+						<span className="mr-3">
+							<AiOutlineSetting />
+						</span>{" "}
+						Menu settings
 					</button>
 				</div>
 			</aside>
@@ -100,7 +112,7 @@ export default function Dashboard() {
 								onClick={() => setSidebarOpen(!sidebarOpen)}
 								className="mr-4 text-gray-500 lg:hidden"
 							>
-								☰
+								<AiOutlineMenuUnfold />
 							</button>
 							<h1 className="text-xl font-semibold">Business overview</h1>
 						</div>
@@ -110,7 +122,7 @@ export default function Dashboard() {
 									onClick={() => setUserDropdownOpen(!userDropdownOpen)}
 									className="p-2"
 								>
-									👤
+									<AiOutlineUser />
 								</button>
 								{userDropdownOpen && (
 									<div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5">
@@ -138,19 +150,37 @@ export default function Dashboard() {
 									</div>
 								)}
 							</div>
-							<button className="p-2">❔</button>
-							<button className="p-2">🔍</button>
-							<button className="p-2">🔔</button>
-							<button className="p-2">⚙️</button>
+							{/* Dark toggler here */}
 						</div>
 					</div>
 				</header>
 
 				{/* Content Area */}
 				<div className="p-6">
-					<p className="text-gray-600 dark:text-gray-300">
-						Your dashboard content goes here.
-					</p>
+					{/* Your dashboard content goes here. */}
+
+					<div className="flex flex-col md:flex-row gap-4 w-full items-center justify-between">
+						<StatsCard
+							title="4000+"
+							description="Registered user"
+							icon={<AiOutlineTeam size="25" />}
+						/>
+						<StatsCard
+							title="400+"
+							description="Blog posts"
+							icon={<AiOutlineRead size="25" />}
+						/>
+						<StatsCard
+							title="300+"
+							description="Post Shared"
+							icon={<AiOutlineShareAlt size="25" />}
+						/>
+						<StatsCard
+							title="40000+"
+							description="Post views"
+							icon={<AiOutlineFire size="25" />}
+						/>
+					</div>
 				</div>
 			</main>
 		</div>
